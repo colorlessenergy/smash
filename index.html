@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>super smash bros</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" defer></script>
+    <script src="app.js" charset="utf-8" defer></script>
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        <thumbnail v-for="(char, index) in characters"
+                   v-bind:key="char.id"
+                   v-bind:pic="char.thumbnail"
+                   v-on:chose="addChar(char)"
+                   class="thumbnail"
+                   ></thumbnail>
+      </div>
+      <div class="portrait__display">
+        <portrait v-for="char in currentCharacter"
+                  v-bind:key="char.id"
+                  v-bind:name="char.name"
+                  v-bind:pic="char.portrait"
+                  v-bind:icon="char.icon"
+                  ></portrait>
+      </div>
+    </div>
+  </body>
+</html>
