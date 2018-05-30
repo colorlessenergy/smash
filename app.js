@@ -32,7 +32,6 @@ var app = new Vue({
     message: "Hello, world!",
     characters: [
       {id: 0, name: "image/captainfalcon-name.png", thumbnail: "image/captain-thumbnail.png", portrait: "image/captain-portrait.png", pickSound: 'image/pick-cp.wav', icon: "image/icon-cp.png"},
-      {id: 1, name: "Bip Brian", thumbnail: "image/brian-thumbnail.jpg", portrait: "image/brian-portrait.jpg"}
     ],
     currentCharacter: [
       {id: 0, name: "?", thumbnail: "", portrait: "?", pickSound: '', icon: ""},
