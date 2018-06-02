@@ -1,8 +1,34 @@
 body {
   margin: 0; }
 
+.select-characters {
+  height: 100px; }
+
+.select-characters img:nth-child(1) {
+  left: 70px; }
+
+.select-characters img:nth-child(2) {
+  left: 140px; }
+
+.select-characters img:nth-child(3) {
+  left: 210px; }
+
+.lightblue {
+  background-color: #addbd9; }
+
+.red {
+  background-color: #91352a; }
+
+.green {
+  background-color: #697c0e; }
+
+.blue {
+  background-color: #4c4ea9; }
+
+.selectChar {
+  position: absolute; }
+
 .portrait {
-  background-color: lightblue;
   border: 2px solid #000;
   border-top-left-radius: 30px;
   width: 33.3%;
