@@ -1,5 +1,5 @@
 Vue.component("thumbnail", {
-  template: '<img :src="pic" v-on:click="$emit(\'chose\')" v-on:mouseenter="$emit(\'picking\')" />',
+  template: '<img :src="pic" v-on:click="$emit(\'chose\')" />',
   props: ["pic"]
 });
 
@@ -21,7 +21,7 @@ Vue.component("portrait", {
 });
 
 Vue.component("select-char", {
-  template: '<img v-on:click="$emit(\'chose\', $event)" v-on:mousemove="$emit(\'follow\', $event)" :src="pick" />',
+  template: '<img v-on:click="$emit(\'chose\', $event)" v-on:mousemove="$emit(\'hi\')" :src="pick" />',
   props: ["pick"]
 })
 
@@ -46,20 +46,27 @@ var app = new Vue({
       {id: 1, src: 'image/cursor/p2.png', active: false},
       {id: 2, src: 'image/cursor/p3.png', active: false},
       {id: 3, src: 'image/cursor/p4.png', active: false}
-    ]
+    ],
+    currentDrag: false,
+    currentElement: undefined,
+    mousePos: {
+      x: 0,
+      y: 0
+    },
+    index: 0
   },
 
   methods: {
     addChar: function (char) {
-      this.currentCharacter[0].id = char.id;
-      this.currentCharacter[0].name = char.name;
-      this.currentCharacter[0].thumbnail = char.thumnail;
-      this.currentCharacter[0].portrait = char.portrait;
-      this.currentCharacter[0].pickSound = char.pickSound;
-      this.currentCharacter[0].icon = char.icon;
+      this.currentCharacter[this.index].id = char.id;
+      this.currentCharacter[this.index].name = char.name;
+      this.currentCharacter[this.index].thumbnail = char.thumnail;
+      this.currentCharacter[this.index].portrait = char.portrait;
+      this.currentCharacter[this.index].pickSound = char.pickSound;
+      this.currentCharacter[this.index].icon = char.icon;
 
       var pickAudio = new Audio();
-      pickAudio.src = this.currentCharacter[0].pickSound;
+      pickAudio.src = this.currentCharacter[this.index].pickSound;
       pickAudio.play();
     },
 
@@ -71,29 +78,60 @@ var app = new Vue({
       this.currentCharacter[0].icon = char.icon;
     },
 
+    move: function(e) {
+      console.log(this.currentElement);
+      if (this.currentElement) {
+        this.currentElement.style.left = (this.mousePos.x - 30) + "px";
+        this.currentElement.style.top = (this.mousePos.y - 30) + "px";
+      }
+      // if (this.currentDrag) {
+      //   this.currentElement.currentTarget.style.left = (this.mousePos.x.clientX - 30) + "px";
+      // }
+    },
+
     pickCharacter: function (index, event) {
-      var el = event.currentTarget;
-      this.move = function(e) {
-        // console.log(el, e)
-        el.style.left = (e.clientX - 30) + "px";
-        el.style.top = (e.clientY - 30) + "px";
+      // alert(index, event)
+      var that = this;
+      console.log(event, index)
+      if (this.currentDrag === false) {
+        this.currentDrag = true;
+        this.currentElement = event.currentTarget;
+        console.log(index, event, this.currentElement)
+      } else {
+        this.currentElement.style.zIndex = -1;
+        this.currentDrag = false;
+        window.setTimeout(function () {
+          // console.log(that.mouseP)
+          that.index = index;
+          document.elementFromPoint(that.mousePos.x, that.mousePos.y).click();
+          that.currentElement.style.zIndex = 1;
+          that.currentElement = false;
+        }, 1)
       }
-      var move = this.move;
-      var select = this.select;
-      this.select[index].active = true;
-      if (this.select[index].active) {
-        window.addEventListener("mousemove", function (e) {
-          move(e)
-        }, false);
-        el.addEventListener("click", function (ev){
-          ev.stopPropagation();
-          console.log("clicked")
-          select[index].active = false;
-          window.removeEventListener("mousemove", function (e) {
-            move(e)
-          }, false);
-        });
-      }
+      // var el = event.currentTarget;
+
+      // var move = this.move;
+      // var select = this.select;
+      // this.select[index].active = true;
+      // if (this.select[index].active) {
+      //   window.addEventListener("mousemove", function (e) {
+      //     move(e)
+      //   }, false);
+        // document.querySelector(".thumbnail__display").addEventListener("click", function (ev){
+        //   ev.stopPropagation();
+        //   select[index].active = false;
+        //   window.removeEventListener("mousemove", function (e) {
+        //     move(e)
+        //   }, false);
+        // });
+      // }
     }
+  }, mounted() {
+    var self = this;
+    window.addEventListener('mousemove', function (event) {
+      self.mousePos.x = event.clientX;
+      self.mousePos.y = event.clientY;
+
+    });
   }
 })

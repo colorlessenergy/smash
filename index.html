@@ -14,13 +14,14 @@
                      v-bind:key="select.id"
                      v-bind:pick="select.src"
                      v-bind:class="{selectChar: true}"
-                     v-on:chose="pickCharacter(index, $event)"> </select-char>
+                     v-on:chose="pickCharacter(index, $event)"
+                     v-on:hi="move($event)"> </select-char>
       </div>
       <div class="thumbnail__display">
         <thumbnail v-for="(char, index) in characters"
                    v-bind:key="char.id"
                    v-bind:pic="char.thumbnail"
-                   v-on:chose="addChar(char)"
+                   v-on:chose="addChar(char, index)"
                    v-on:picking="hoverCharacter(char, index)"
                    class="thumbnail"
                    ></thumbnail>
