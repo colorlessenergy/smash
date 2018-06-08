@@ -1,7 +1,8 @@
-$lightblue: #addbd9;
-$red: #91352a;
-$green: #697c0e;
-$blue: #4c4ea9;
+$cursorlightblue: 'image/cursor/p1.png';
+$cursorred: 'image/cursor/p2.png';
+$cursorgreen: 'image/cursor/p3.png';
+$cursorblue: 'image/cursor/p4.png';
+
 
 
 body {
@@ -23,18 +24,22 @@ body {
 }
 
 .lightblue {
-  background-color: $lightblue;
+  background-color: #addbd9;
+  cursor: url($cursorlightblue), auto;
 }
 .red {
-  background-color: $red;
+  background-color: #91352a;
+  cursor: url($cursorred), auto;
 }
 
 .green {
-  background-color: $green;
+  background-color: #697c0e;
+  cursor: url($cursorgreen), auto;
 }
 
 .blue {
-  background-color: $blue;
+  background-color: #4c4ea9;
+  cursor: url($cursorblue), auto;
 }
 
 .selectChar {

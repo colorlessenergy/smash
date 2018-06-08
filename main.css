@@ -14,16 +14,20 @@ body {
   left: 210px; }
 
 .lightblue {
-  background-color: #addbd9; }
+  background-color: #addbd9;
+  cursor: url("image/cursor/p1.png"), auto; }
 
 .red {
-  background-color: #91352a; }
+  background-color: #91352a;
+  cursor: url("image/cursor/p2.png"), auto; }
 
 .green {
-  background-color: #697c0e; }
+  background-color: #697c0e;
+  cursor: url("image/cursor/p3.png"), auto; }
 
 .blue {
-  background-color: #4c4ea9; }
+  background-color: #4c4ea9;
+  cursor: url("image/cursor/p4.png"), auto; }
 
 .selectChar {
   position: absolute; }
