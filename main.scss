@@ -3,8 +3,6 @@ $cursorred: 'image/cursor/p2.png';
 $cursorgreen: 'image/cursor/p3.png';
 $cursorblue: 'image/cursor/p4.png';
 
-
-
 body {
   margin: 0;
 }
@@ -21,6 +19,10 @@ body {
 }
 .select-characters img:nth-child(3) {
   left: 210px;
+}
+
+.hover {
+  filter: grayscale(1);
 }
 
 .lightblue {

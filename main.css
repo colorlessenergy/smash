@@ -13,6 +13,9 @@ body {
 .select-characters img:nth-child(3) {
   left: 210px; }
 
+.hover {
+  filter: grayscale(1); }
+
 .lightblue {
   background-color: #addbd9;
   cursor: url("image/cursor/p1.png"), auto; }

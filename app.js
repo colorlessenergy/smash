@@ -1,5 +1,5 @@
 Vue.component("thumbnail", {
-  template: '<img :src="pic" v-on:click="$emit(\'chose\')" />',
+  template: '<img :src="pic" v-on:click="$emit(\'chose\')" v-on:mouseenter="$emit(\'enter\')" />',
   props: ["pic"]
 });
 
@@ -64,26 +64,25 @@ var app = new Vue({
 
   methods: {
     addChar: function (char) {
-      // this.charSelectIndex = index;
-      // this.currentCharacter[this.charSelectIndex].id = char.id;
-      this.currentCharacter[this.charSelectIndex].name = char.name;
-      this.currentCharacter[this.charSelectIndex].thumbnail = char.thumnail;
-      this.currentCharacter[this.charSelectIndex].portrait = char.portrait;
-      this.currentCharacter[this.charSelectIndex].pickSound = char.pickSound;
-      this.currentCharacter[this.charSelectIndex].icon = char.icon;
-      this.currentCharacter[this.charSelectIndex].skins = char.skins;
-      var pickAudio = new Audio();
-      pickAudio.src = this.currentCharacter[this.charSelectIndex].pickSound;
-      pickAudio.play();
+      if (this.currentDrag === false) {
+        this.currentCharacter[this.charSelectIndex].name = char.name;
+        this.currentCharacter[this.charSelectIndex].thumbnail = char.thumbnail;
+        // this.currentCharacter[this.charSelectIndex].portrait = char.portrait;
+        this.currentCharacter[this.charSelectIndex].pickSound = char.pickSound;
+        this.currentCharacter[this.charSelectIndex].icon = char.icon;
+        this.currentCharacter[this.charSelectIndex].skins = char.skins;
+        var pickAudio = new Audio();
+        pickAudio.src = this.currentCharacter[this.charSelectIndex].pickSound;
+        pickAudio.play();
 
-      var selectChar = document.querySelectorAll(".selectChar");
-      console.log(this.charSelectIndex)
+        var selectChar = document.querySelectorAll(".selectChar");
 
-      document.querySelector("body").classList.toggle(this.select[this.charSelectIndex].color)
-      selectChar[this.charSelectIndex].style.display = 'block';
-      selectChar[this.charSelectIndex].style.left = (this.mousePos.x) + "px";
-      selectChar[this.charSelectIndex].style.top = (this.mousePos.y) + "px";
-      this.currentDrag = true;
+        document.querySelector("body").classList.toggle(this.select[this.charSelectIndex].color)
+        selectChar[this.charSelectIndex].style.display = 'block';
+        selectChar[this.charSelectIndex].style.left = (this.mousePos.x) + "px";
+        selectChar[this.charSelectIndex].style.top = (this.mousePos.y) + "px";
+        this.currentDrag = true;
+      }
     },
 
     pickCharacter: function (index) {
@@ -98,11 +97,22 @@ var app = new Vue({
     },
 
     changeCharSkin: function(index) {
+      this.changeSkin[index].currentSkin++;
       if (this.changeSkin[index].currentSkin >= this.changeSkin[index].max) {
         this.changeSkin[index].currentSkin = 0;
       }
       this.currentCharacter[index].portrait = this.currentCharacter[index].skins[this.changeSkin[index].currentSkin];
-      this.changeSkin[index].currentSkin++;
+    },
+
+    enter: function (char){
+      if (this.currentDrag === false) {
+        this.currentCharacter[this.charSelectIndex].name = char.name;
+        this.currentCharacter[this.charSelectIndex].thumbnail = char.thumbnail;
+        this.currentCharacter[this.charSelectIndex].portrait = char.portrait;
+        this.currentCharacter[this.charSelectIndex].pickSound = char.pickSound;
+        this.currentCharacter[this.charSelectIndex].icon = char.icon;
+        this.currentCharacter[this.charSelectIndex].skins = char.skins;
+      }
     }
   },
   mounted() {
